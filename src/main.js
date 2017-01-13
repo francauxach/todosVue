@@ -23,12 +23,13 @@ const router = new VueRouter({
 
 // Vue Router
 import VueRouter from 'vue-router'
-Vue.use(router)
+Vue.use(VueRouter)
 
 /* eslint-disable no-new */
 
 new Vue({
   el: '#app',
   template: '<App/>',
-  components: { App }
+  components: { App },
+  router: router
 })
