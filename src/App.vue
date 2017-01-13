@@ -18,12 +18,12 @@
 
       <md-list>
         <md-list-item @click="toggleLeftSidenav">
-          <md-icon>move_to_inbox</md-icon>
+          <md-icon>view_list</md-icon>
           <router-link to="/todos">Todos</router-link>
         </md-list-item>
 
         <md-list-item @click="toggleLeftSidenav">
-          <md-icon>send</md-icon>
+          <md-icon>verified_user</md-icon>
           <router-link to="/tokens">Tokens</router-link>
         </md-list-item>
 
