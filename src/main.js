@@ -12,6 +12,7 @@ Vue.use(VueMaterial)
 import Todos from 'components/Todos.vue'
 import Tokens from 'components/Tokens.vue'
 
+// Vue Router
 const routes = [
   { path: '/todos', component: Todos },
   { path: '/tokens', component: Tokens }
@@ -21,7 +22,6 @@ const router = new VueRouter({
   routes // short for routes: routes
 })
 
-// Vue Router
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
