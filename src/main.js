@@ -8,6 +8,10 @@ import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
 Vue.use(VueMaterial)
 
+// Vue Router
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+
 /* eslint-disable no-new */
 
 new Vue({
