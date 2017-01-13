@@ -8,10 +8,10 @@
 </style>
 <script>
     export default{
-        data(){
-            return{
-                msg:'Todos aquí!'
-            }
+      data () {
+        return {
+          msg: 'Todos aquí!'
         }
+      }
     }
 </script>

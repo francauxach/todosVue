@@ -8,9 +8,22 @@ import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
 Vue.use(VueMaterial)
 
+// Importar components
+import Todos from 'components/Todos.vue'
+import Tokens from 'components/Tokens.vue'
+
+const routes = [
+  { path: '/todos', component: Todos },
+  { path: '/tokens', component: Tokens }
+]
+
+const router = new VueRouter({
+  routes // short for routes: routes
+})
+
 // Vue Router
 import VueRouter from 'vue-router'
-Vue.use(VueRouter)
+Vue.use(router)
 
 /* eslint-disable no-new */
 
