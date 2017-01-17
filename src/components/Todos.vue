@@ -15,6 +15,7 @@
       },
       created () {
         console.log('Todos component!!')
+        this.fetchData()
       },
       methods: {
         fetchData: function () {
