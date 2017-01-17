@@ -17,6 +17,10 @@ import Axios from 'axios'
 window.axios = Axios
 Vue.prototype.$http = window.axios
 
+// SweetAlert
+import SweetAlert from 'sweetalert'
+window.sweetAlert = SweetAlert
+
 // Vue Router
 const routes = [
   { path: '/todos', component: Todos },

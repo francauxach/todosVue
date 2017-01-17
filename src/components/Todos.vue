@@ -28,7 +28,7 @@
             console.log(response.data)
             this.todos = response.data.data
           }, (response) => {
-            console.log(response)
+            sweetAlert('Oops...', 'Something went wrong!', 'error')
           })
         }
       }
