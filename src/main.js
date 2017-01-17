@@ -14,6 +14,8 @@ import Tokens from 'components/Tokens.vue'
 
 // Axios
 import Axios from 'axios'
+window.axios = Axios
+Vue.prototype.$http = window.axios
 
 // Vue Router
 const routes = [
