@@ -12,6 +12,9 @@ Vue.use(VueMaterial)
 import Todos from 'components/Todos.vue'
 import Tokens from 'components/Tokens.vue'
 
+// Axios
+import Axios from 'axios'
+
 // Vue Router
 const routes = [
   { path: '/todos', component: Todos },
