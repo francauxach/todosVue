@@ -14,6 +14,8 @@
 
 </style>
 <script>
+    var STORAGE_KEY = 'todosvue_token'
+
     export default{
       data () {
         return {
@@ -22,7 +24,11 @@
         }
       },
       created () {
-        console.log('Todos component!!')
+        if (this.fetchToken()) {
+          this.authorized = true
+        } else {
+          this.authorized = false
+        }
         this.fetchData()
       },
       methods: {
@@ -34,11 +40,17 @@
             console.log(response.data)
             this.todos = response.data.data
           }, (response) => {
-            this.sweetAlert('Oops...', 'Something went wrong!', 'error')
+            window.sweetAlert('Oops...', 'Something went wrong!', 'error')
           })
         },
         connect: function () {
           console.log('Do connect here!')
+        },
+        fetchToken: function () {
+          return window.localStorage.getItem(STORAGE_KEY)
+        },
+        saveToken: function (todos) {
+          window.localStorage.setItem(STORAGE_KEY, this.token)
         }
       }
     }
