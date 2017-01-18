@@ -15,6 +15,7 @@
 </style>
 <script>
     var STORAGE_KEY = 'todosvue_token'
+    var AUTH_CLIENT_ID = '2'
 
     export default{
       data () {
@@ -45,6 +46,9 @@
         },
         connect: function () {
           console.log('Do connect here!')
+          var query = 'client_id=' + AUTH_CLIENT_ID + '&redirect_uri=' + window.location + '&response_type=token&scope='
+          console.log(query)
+          // window.location.replace('http://todos.dev:8000/oauth/authorize?' + query)
         },
         fetchToken: function () {
           return window.localStorage.getItem(STORAGE_KEY)
