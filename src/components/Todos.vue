@@ -3,6 +3,9 @@
         <div v-show="!authorized">
             <md-button class="md-raised md-primary" @click="connect()">Connect</md-button>
         </div>
+        <div v-show="authorized">
+            <md-button class="md-raised md-primary" @click="logout()">Logout</md-button>
+        </div>
         <ul v-show="authorized">
             <li v-for="(todo, index) in todos">
                 {{ todo.name }}
