@@ -1,9 +1,9 @@
 <template>
-    <div>
-        <ul>
-            <li v-for="(todo, index) in todos">{{ todo.name }}</li>
-        </ul>
-    </div>
+    <ul>
+        <li v-for="(todo, index) in todos">
+            {{ todo.name }}
+        </li>
+    </ul>
 </template>
 <style>
 
