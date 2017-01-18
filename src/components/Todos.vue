@@ -45,6 +45,11 @@
           return this.fetchPage(1)
         },
         fetchPage: function (page) {
+          var token = this.fetchToken()
+          console.log(token)
+          if (token) {
+            this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
+          }
           this.$http.get('http://todos.dev:8000/api/v1/task?page=' + page).then((response) => {
             // console.log(response.data)
             this.todos = response.data.data
