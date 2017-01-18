@@ -16,6 +16,7 @@
 <script>
     var STORAGE_KEY = 'todosvue_token'
     var AUTH_CLIENT_ID = '2'
+    var AUTH_REDIRECT_URI = 'http://localhost:8088/todos'
 
     export default{
       data () {
@@ -25,6 +26,10 @@
         }
       },
       created () {
+        var token = this.extractToken(document.location.hash)
+        if (token) {
+          this.saveToken(token)
+        }
         if (this.fetchToken()) {
           this.authorized = true
         } else {
@@ -38,23 +43,35 @@
         },
         fetchPage: function (page) {
           this.$http.get('http://todos.dev:8000/api/v1/task?page=' + page).then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             this.todos = response.data.data
           }, (response) => {
             window.sweetAlert('Oops...', 'Something went wrong!', 'error')
           })
         },
         connect: function () {
-          console.log('Do connect here!')
-          var query = 'client_id=' + AUTH_CLIENT_ID + '&redirect_uri=' + window.location + '&response_type=token&scope='
-          console.log(query)
-          // window.location.replace('http://todos.dev:8000/oauth/authorize?' + query)
+          query = {
+            client_id: AUTH_CLIENT_ID,
+            redirect_uri: AUTH_REDIRECT_URI,
+            response_type: 'token',
+            scope: ''
+          }
+          var query = window.querystring.stringify(query)
+          window.location.replace('http://todos.dev:8000/oauth/authorize?' + query)
         },
         fetchToken: function () {
           return window.localStorage.getItem(STORAGE_KEY)
         },
-        saveToken: function (todos) {
-          window.localStorage.setItem(STORAGE_KEY, this.token)
+        saveToken: function (token) {
+          window.localStorage.setItem(STORAGE_KEY, token)
+        },
+        extractToken: function (hash) {
+          var match = hash.match(/access_token=(\w+)/)
+          return !!match && match[1]
+        },
+        logout: function () {
+          window.localStorage.removeItem(STORAGE_KEY)
+          this.authorized = false
         }
       }
     }

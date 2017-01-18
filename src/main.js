@@ -17,6 +17,10 @@ import Axios from 'axios'
 window.axios = Axios
 Vue.prototype.$http = window.axios
 
+// QueryString
+import querystring from 'querystring'
+window.querystring = querystring
+
 // SweetAlert
 import SweetAlert from 'sweetalert'
 window.sweetAlert = SweetAlert
@@ -28,6 +32,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes // short for routes: routes
 })
 
