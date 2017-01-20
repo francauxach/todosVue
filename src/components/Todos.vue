@@ -25,7 +25,8 @@
       data () {
         return {
           todos: [],
-          authorized: false
+          authorized: false,
+          token: null
         }
       },
       created () {
@@ -33,28 +34,30 @@
         if (token) {
           this.saveToken(token)
         }
-        if (this.fetchToken()) {
+        if (this.token == null) {
+          this.token = this.fetchToken()
+        }
+        if (this.token) {
           this.authorized = true
+          this.fetchData()
         } else {
           this.authorized = false
         }
-        this.fetchData()
       },
       methods: {
         fetchData: function () {
           return this.fetchPage(1)
         },
         fetchPage: function (page) {
-          var token = this.fetchToken()
-          console.log(token)
-          if (token) {
-            this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
-          }
+          console.log(this.token)
+          this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.token
           this.$http.get('http://todos.dev:8000/api/v1/task?page=' + page).then((response) => {
             // console.log(response.data)
             this.todos = response.data.data
           }, (response) => {
             window.sweetAlert('Oops...', 'Something went wrong!', 'error')
+            // TODO only if HTTP response code is 401
+            // this.authorized = false
           })
         },
         connect: function () {
