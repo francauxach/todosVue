@@ -24,10 +24,12 @@
 
                 <md-table-body>
                     <md-table-row v-for="(todo, index) in todos" :key="index">
-                        <md-table-cell md-numeric>{{ todo.id }}</md-table-cell>
+                        <md-table-cell md-numeric>{{ index+1 }}</md-table-cell>
                         <md-table-cell>{{ todo.name }}</md-table-cell>
                         <md-table-cell md-numeric>{{ todo.priority }}</md-table-cell>
-                        <md-table-cell>{{ todo.done }}</md-table-cell>
+                        <md-table-cell>
+                            <md-switch v-model="todo.done" id="done" name="done" class="md-primary"></md-switch>
+                        </md-table-cell>
                         <md-table-cell></md-table-cell>
                     </md-table-row>
                 </md-table-body>
@@ -62,7 +64,8 @@
           to: 0,
           total: 0,
           perPage: 0,
-          page: 1
+          page: 1,
+          done: false
         }
       },
       created () {
@@ -122,6 +125,9 @@
         logout: function () {
           window.localStorage.removeItem(STORAGE_KEY)
           this.authorized = false
+        },
+        checkChanged: function (isChecked) {
+          console.log(isChecked)
         }
       }
     }
