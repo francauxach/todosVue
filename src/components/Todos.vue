@@ -6,11 +6,33 @@
         <div v-show="authorized">
             <md-button class="md-raised md-primary" @click="logout()">Logout</md-button>
         </div>
-        <ul v-show="authorized">
-            <li v-for="(todo, index) in todos">
-                {{ todo.name }}
-            </li>
-        </ul>
+
+        <md-table-card>
+            <md-toolbar>
+                <h1 class="md-title">Tasques</h1>
+            </md-toolbar>
+            <md-table md-sort="id" v-show="authorized">
+                <md-table-header>
+                    <md-table-row>
+                        <md-table-head md-sort-by="id" md-numeric>#</md-table-head>
+                        <md-table-head md-sort-by="task" md-tooltip="The name of the task.">Task</md-table-head>
+                        <md-table-head md-sort-by="priority" md-numeric>Priority</md-table-head>
+                        <md-table-head>Done</md-table-head>
+                        <md-table-head>Actions</md-table-head>
+                    </md-table-row>
+                </md-table-header>
+
+                <md-table-body>
+                    <md-table-row v-for="(todo, index) in todos" :key="index">
+                        <md-table-cell md-numeric>{{ todo.id }}</md-table-cell>
+                        <md-table-cell>{{ todo.name }}</md-table-cell>
+                        <md-table-cell md-numeric>{{ todo.priority }}</md-table-cell>
+                        <md-table-cell>{{ todo.done }}</md-table-cell>
+                        <md-table-cell></md-table-cell>
+                    </md-table-row>
+                </md-table-body>
+            </md-table>
+        </md-table-card>
     </div>
 </template>
 <style>
