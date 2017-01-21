@@ -32,6 +32,15 @@
                     </md-table-row>
                 </md-table-body>
             </md-table>
+            <!--<md-table-pagination-->
+                    <!--:md-size="perPage"-->
+                    <!--:md-total="total"-->
+                    <!--:md-page="page"-->
+                    <!--md-label="Rows"-->
+                    <!--md-separator="of"-->
+                    <!--:md-page-options="[15]"-->
+                    <!--@pagination="fetchPage(page)">-->
+            <!--</md-table-pagination>-->
         </md-table-card>
     </div>
 </template>
@@ -48,7 +57,12 @@
         return {
           todos: [],
           authorized: false,
-          token: null
+          token: null,
+          from: 0,
+          to: 0,
+          total: 0,
+          perPage: 0,
+          page: 1
         }
       },
       created () {
@@ -71,11 +85,14 @@
           return this.fetchPage(1)
         },
         fetchPage: function (page) {
-          console.log(this.token)
           this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.token
           this.$http.get('http://todos.dev:8000/api/v1/task?page=' + page).then((response) => {
             // console.log(response.data)
             this.todos = response.data.data
+            this.from = response.data.from
+            this.to = response.data.to
+            this.total = response.data.total
+            this.perPage = response.data.per_page
           }, (response) => {
             window.sweetAlert('Oops...', 'Something went wrong!', 'error')
             // TODO only if HTTP response code is 401
