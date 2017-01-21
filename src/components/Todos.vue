@@ -30,7 +30,14 @@
                         <md-table-cell>
                             <md-switch v-model="todo.done" id="done" name="done" class="md-primary"></md-switch>
                         </md-table-cell>
-                        <md-table-cell></md-table-cell>
+                        <md-table-cell>
+                            <md-button class="md-raised md-primary">
+                                <md-icon>edit</md-icon>
+                            </md-button>
+                            <md-button class="md-raised md-accent">
+                                <md-icon>delete</md-icon>
+                            </md-button>
+                        </md-table-cell>
                     </md-table-row>
                 </md-table-body>
             </md-table>
@@ -64,8 +71,7 @@
           to: 0,
           total: 0,
           perPage: 0,
-          page: 1,
-          done: false
+          page: 1
         }
       },
       created () {
