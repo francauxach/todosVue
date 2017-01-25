@@ -107,7 +107,6 @@
             this.perPage = response.data.per_page
             this.page = response.data.current_page
           }, (response) => {
-            window.sweetAlert('Oops...', 'Something went wrong!', 'error')
             // TODO only if HTTP response code is 401
             // this.authorized = false
           })
