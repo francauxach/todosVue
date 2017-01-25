@@ -42,12 +42,12 @@
                 </md-table-body>
             </md-table>
             <md-table-pagination
-                    :md-size="perPage"
-                    :md-total="total"
-                    :md-page="page"
-                    :md-label="Rows"
-                    :md-separator="of"
-                    :md-page-options="[15]"
+                    :md-size=perPage
+                    :md-total=total
+                    :md-page=page
+                    md-label="Rows"
+                    md-separator="of"
+                    :md-page-options="[5, 15, 25, 50]"
                     @pagination="fetchPage(page)">
             </md-table-pagination>
         </md-table-card>
@@ -60,6 +60,7 @@
     var STORAGE_KEY = 'todosvue_token'
     var AUTH_CLIENT_ID = '2'
     var AUTH_REDIRECT_URI = 'http://localhost:8088/todos'
+    var API_URL = 'http://todos.dev:8000/api/v1/task'
 
     export default{
       data () {
@@ -71,7 +72,7 @@
           to: 0,
           total: 0,
           perPage: 0,
-          page: 1
+          page: 0
         }
       },
       created () {
@@ -97,13 +98,14 @@
         },
         fetchPage: function (page) {
           this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.token
-          this.$http.get('http://todos.dev:8000/api/v1/task?page=' + page).then((response) => {
+          this.$http.get(API_URL + '?page=' + page).then((response) => {
             // console.log(response.data)
             this.todos = response.data.data
             this.from = response.data.from
             this.to = response.data.to
             this.total = response.data.total
             this.perPage = response.data.per_page
+            this.page = response.data.current_page
           }, (response) => {
             window.sweetAlert('Oops...', 'Something went wrong!', 'error')
             // TODO only if HTTP response code is 401
