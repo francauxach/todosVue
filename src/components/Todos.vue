@@ -41,15 +41,15 @@
                     </md-table-row>
                 </md-table-body>
             </md-table>
-            <!--<md-table-pagination-->
-                    <!--:md-size="perPage"-->
-                    <!--:md-total="total"-->
-                    <!--:md-page="page"-->
-                    <!--md-label="Rows"-->
-                    <!--md-separator="of"-->
-                    <!--:md-page-options="[15]"-->
-                    <!--@pagination="fetchPage(page)">-->
-            <!--</md-table-pagination>-->
+            <md-table-pagination
+                    :md-size="perPage"
+                    :md-total="total"
+                    :md-page="page"
+                    :md-label="Rows"
+                    :md-separator="of"
+                    :md-page-options="[15]"
+                    @pagination="fetchPage(page)">
+            </md-table-pagination>
         </md-table-card>
     </div>
 </template>
@@ -75,7 +75,9 @@
         }
       },
       created () {
-        var token = this.extractToken(document.location.hash)
+        if (document.location.hash) {
+          var token = this.extractToken(document.location.hash)
+        }
         if (token) {
           this.saveToken(token)
         }
@@ -125,8 +127,7 @@
           window.localStorage.setItem(STORAGE_KEY, token)
         },
         extractToken: function (hash) {
-          var match = hash.match(/access_token=(\w+)/)
-          return !!match && match[1]
+          return hash.match(/#(?:access_token)=([\S\s]*?)&/)[1]
         },
         logout: function () {
           window.localStorage.removeItem(STORAGE_KEY)
