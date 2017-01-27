@@ -2,16 +2,12 @@
     <md-card md-with-hover>
         <md-card-header>
             <md-avatar>
-                <img src="assets/avatar.png" alt="People">
+                <img src="https://s.gravatar.com/avatar/9ac3cccb8d8700f242bb89a5d31bc404?s=80" alt="People">
             </md-avatar>
 
             <div class="md-title">Franc Auxach Cortés</div>
             <div class="md-subhead">Profile</div>
         </md-card-header>
-
-        <md-card-media>
-            <img src="assets/card-image-1.jpg" alt="People">
-        </md-card-media>
 
         <md-card-content>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea nostrum.
