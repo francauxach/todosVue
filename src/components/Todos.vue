@@ -1,12 +1,5 @@
 <template>
     <div>
-        <div v-show="!authorized">
-            <md-button class="md-raised md-primary" @click="connect()">Connect</md-button>
-        </div>
-        <div v-show="authorized">
-            <md-button class="md-raised md-primary" @click="logout()">Logout</md-button>
-        </div>
-
         <md-table-card>
             <md-toolbar>
                 <h1 class="md-title">Tasques</h1>
@@ -57,16 +50,11 @@
 
 </style>
 <script>
-    var STORAGE_KEY = 'todosvue_token'
-    var AUTH_CLIENT_ID = '2'
-    var AUTH_REDIRECT_URI = 'http://localhost:8088/todos'
     var API_URL = 'http://todos.dev:8000/api/v1/task'
-
     export default{
       data () {
         return {
           todos: [],
-          authorized: false,
           token: null,
           from: 0,
           to: 0,
@@ -76,21 +64,10 @@
         }
       },
       created () {
-        if (document.location.hash) {
-          var token = this.extractToken(document.location.hash)
-        }
-        if (token) {
-          this.saveToken(token)
-        }
-        if (this.token == null) {
-          this.token = this.fetchToken()
-        }
-        if (this.token) {
-          this.authorized = true
-          this.fetchData()
-        } else {
-          this.authorized = false
-        }
+        var that = this
+        setTimeout(function () {
+          that.fetchData()
+        }, 500)
       },
       methods: {
         fetchData: function () {
@@ -110,29 +87,6 @@
             // TODO only if HTTP response code is 401
             // this.authorized = false
           })
-        },
-        connect: function () {
-          query = {
-            client_id: AUTH_CLIENT_ID,
-            redirect_uri: AUTH_REDIRECT_URI,
-            response_type: 'token',
-            scope: ''
-          }
-          var query = window.querystring.stringify(query)
-          window.location.replace('http://todos.dev:8000/oauth/authorize?' + query)
-        },
-        fetchToken: function () {
-          return window.localStorage.getItem(STORAGE_KEY)
-        },
-        saveToken: function (token) {
-          window.localStorage.setItem(STORAGE_KEY, token)
-        },
-        extractToken: function (hash) {
-          return hash.match(/#(?:access_token)=([\S\s]*?)&/)[1]
-        },
-        logout: function () {
-          window.localStorage.removeItem(STORAGE_KEY)
-          this.authorized = false
         },
         checkChanged: function (isChecked) {
           console.log(isChecked)
