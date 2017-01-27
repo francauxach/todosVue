@@ -25,6 +25,19 @@ const router = new VueRouter({
   routes // short for routes: routes
 })
 
+router.beforeEach((to, from, next) => {
+  console.log('prova')
+  console.log(to)
+  console.log(from)
+  if (to.path === '/login') next()
+  var logged = false
+  if (logged) {
+    next()
+  } else {
+    next('/login')
+  }
+})
+
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
