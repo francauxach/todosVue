@@ -27,6 +27,11 @@
           <router-link to="/tokens">Tokens</router-link>
         </md-list-item>
 
+        <md-list-item @click="toggleLeftSidenav">
+          <md-icon>info_outline</md-icon>
+          <router-link to="/profile">Profile</router-link>
+        </md-list-item>
+
         <md-list-item>
           <md-avatar>
             <img src="https://placeimg.com/40/40/people/5" alt="People">

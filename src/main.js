@@ -8,10 +8,6 @@ import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
 Vue.use(VueMaterial)
 
-// Importar components
-import Todos from 'components/Todos.vue'
-import Tokens from 'components/Tokens.vue'
-
 // Axios
 import Axios from 'axios'
 window.axios = Axios
@@ -22,10 +18,7 @@ import querystring from 'querystring'
 window.querystring = querystring
 
 // Vue Router
-const routes = [
-  { path: '/todos', component: Todos },
-  { path: '/tokens', component: Tokens }
-]
+import routes from './routes'
 
 const router = new VueRouter({
   mode: 'history',
