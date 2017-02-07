@@ -3,45 +3,33 @@
 import Vue from 'vue'
 import App from './App'
 
-// Vue Material
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
-Vue.use(VueMaterial)
+import VueRouter from 'vue-router'
+import Axios from 'axios'
+import querystring from 'querystring'
+
+import auth from './services/auth'
+import router from './services/router'
+
+// QueryString
+window.querystring = querystring
 
 // Axios
-import Axios from 'axios'
 window.axios = Axios
 Vue.prototype.$http = window.axios
 
-// QueryString
-import querystring from 'querystring'
-window.querystring = querystring
+window.axios.defaults.headers.common = {
+  'X-Requested-With': 'XMLHttpRequest'
+}
 
-// Vue Router
-import routes from './routes'
-
-const router = new VueRouter({
-  mode: 'history',
-  routes // short for routes: routes
-})
-
-router.beforeEach((to, from, next) => {
-  console.log('beforeEach')
-  console.log(to)
-  console.log(from)
-  if (to.meta.auth) {
-    var logged = false
-    if (logged) {
-      next()
-    } else {
-      next('/login')
-    }
-  } else {
-    next()
+if (auth.loggedIn()) {
+  window.axios.defaults.headers.common = {
+    'Authorization': auth.getAuthHeader()
   }
-})
+}
 
-import VueRouter from 'vue-router'
+Vue.use(VueMaterial)
 Vue.use(VueRouter)
 
 /* eslint-disable no-new */

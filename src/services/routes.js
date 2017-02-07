@@ -1,11 +1,15 @@
 // Importar components
-import Todos from 'components/Todos'
-import Tokens from 'components/Tokens'
-import Profile from 'components/Profile'
-import NotFound from 'components/NotFound'
-import Login from 'components/Login'
+import Todos from '../components/Todos'
+import Tokens from '../components/Tokens'
+import Profile from '../components/Profile'
+import NotFound from '../components/NotFound'
+import Login from '../components/Login'
 
 const routes = [
+  { path: '/',
+    component: Todos,
+    meta: { auth: true }
+  },
   { path: '/todos',
     component: Todos,
     meta: { auth: true }
