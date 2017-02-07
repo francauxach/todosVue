@@ -2,10 +2,10 @@
     <md-card md-with-hover>
         <md-card-header>
             <md-avatar>
-                <img :src="avatar" :alt="name">
+                <img :src="avatar" alt="Franc Auxach Cortés">
             </md-avatar>
 
-            <div class="md-title">{{ name }}</div>
+            <div class="md-title">{{ id }} {{ name }}</div>
             <div class="md-subhead">{{ email }}</div>
         </md-card-header>
 
@@ -38,13 +38,15 @@
             <md-button>Edit</md-button>
             <md-button>Delete</md-button>
         </md-card-actions>
+        <md-snackbar md-position="bottom center" ref="connectionError" md-duration="4000">
+            <span>Connection error. Please reconnect using connect button!.</span>
+        </md-snackbar>
     </md-card>
 </template>
 <style>
 </style>
 <script>
-  var API_PROFILE_URL = 'http://todos.dev:8000/api/v1/user'
-  var STORAGE_KEY = 'todosvue_token'
+  import todosVue from '../todosVue'
   export default {
     data () {
       return {
@@ -63,21 +65,19 @@
       }
     },
     created () {
-      console.log('Component profile created!')
       this.fetchUserProfile()
     },
     methods: {
       fetchUserProfile: function () {
-        this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem(STORAGE_KEY)
-        this.$http.get(API_PROFILE_URL).then((response) => {
+        this.$http.get(todosVue.API_PROFILE_URL).then((response) => {
           this.connecting = false
-          console.log(response.data)
           this.id = response.data.id
           this.name = response.data.name
           this.email = response.data.email
           this.createdAt = response.data.created_at
           this.updatedAt = response.data.updated_at
         }, (response) => {
+          this.connecting = false
           this.showConnectionError()
         })
       },
