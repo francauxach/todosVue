@@ -19,17 +19,22 @@
       <md-list>
         <md-list-item @click="toggleLeftSidenav">
           <md-icon>view_list</md-icon>
-          <router-link to="/todos">Todos</router-link>
+          <router-link exact to="/todos">Todos</router-link>
         </md-list-item>
 
         <md-list-item @click="toggleLeftSidenav">
           <md-icon>verified_user</md-icon>
-          <router-link to="/tokens">Tokens</router-link>
+          <router-link exact to="/tokens">Tokens</router-link>
         </md-list-item>
 
         <md-list-item @click="toggleLeftSidenav">
           <md-icon>info_outline</md-icon>
-          <router-link to="/profile">Profile</router-link>
+          <router-link exact to="/profile">Profile</router-link>
+        </md-list-item>
+
+        <md-list-item @click="toggleLeftSidenav">
+          <md-icon>profile</md-icon>
+          <router-link exact to="/login" >Login/Logout</router-link>
         </md-list-item>
 
         <md-list-item>
@@ -53,13 +58,8 @@
 </template>
 
 <script>
-import Hello from './components/Hello'
-
 export default {
   name: 'app',
-  components: {
-    Hello
-  },
   methods: {
     toggleLeftSidenav () {
       this.$refs.leftSidenav.toggle()
@@ -75,5 +75,8 @@ export default {
 </script>
 
 <style>
-
+a {
+  color: inherit;
+  text-decoration: none;
+}
 </style>
