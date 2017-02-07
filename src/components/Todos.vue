@@ -95,7 +95,7 @@
             this.perPage = response.data.per_page
             this.page = response.data.current_page
           }, (response) => {
-            this.connecting: false
+            this.connecting = false
             this.showConnectionError()
             this.authorized = false
           })

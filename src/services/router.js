@@ -3,15 +3,15 @@ import routes from './routes'
 import auth from './auth'
 
 const router = new VueRouter({
-    mode: 'history',
-    routes
+  mode: 'history',
+  routes
 })
 
 router.beforeEach((to, from, next) => {
-    if (to.meta.auth && !auth.loggedIn()) {
-        return next('/login')
-    }
-    next()
+  if (to.meta.auth && !auth.loggedIn()) {
+    return next('/login')
+  }
+  next()
 })
 
 export default router
