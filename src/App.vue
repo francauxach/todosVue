@@ -33,7 +33,7 @@
         </md-list-item>
 
         <md-list-item @click="toggleLeftSidenav">
-          <md-icon>profile</md-icon>
+          <md-icon>exit_to_app</md-icon>
           <router-link exact to="/login" >Login/Logout</router-link>
         </md-list-item>
 
