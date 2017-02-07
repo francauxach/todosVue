@@ -3,22 +3,29 @@
         <md-table-card>
             <md-toolbar>
                 <h1 class="md-title">Tasques</h1>
+                <md-button class="md-icon-button">
+                    <md-icon>filter_list</md-icon>
+                </md-button>
+
+                <md-button class="md-icon-button">
+                    <md-icon>search</md-icon>
+                </md-button>
             </md-toolbar>
-            <md-table md-sort="id" v-show="authorized">
+            <md-table md-sort="id" md-sort-type="desc" v-show="authorized">
                 <md-table-header>
                     <md-table-row>
-                        <md-table-head md-sort-by="id" md-numeric>#</md-table-head>
-                        <md-table-head md-sort-by="task" md-tooltip="The name of the task.">Task</md-table-head>
-                        <md-table-head md-sort-by="priority" md-numeric>Priority</md-table-head>
-                        <md-table-head>Done</md-table-head>
+                        <md-table-head md-sort-by="name" md-tooltip="The name of the task.">Name</md-table-head>
+                        <md-table-head md-sort-by="priority" md-numeric md-numeric md-tooltip="The priority for task">Priority</md-table-head>
+                        <md-table-head md-tooltip="Task is done?">Done</md-table-head>
                         <md-table-head>Actions</md-table-head>
                     </md-table-row>
                 </md-table-header>
 
+                <md-spinner :md-size="150" md-indeterminate  class="md-accent" v-show="connecting" ></md-spinner>
+
                 <md-table-body>
                     <md-table-row v-for="(todo, index) in todos" :key="index">
-                        <md-table-cell md-numeric>{{ index+1 }}</md-table-cell>
-                        <md-table-cell>{{ todo.name }}</md-table-cell>
+                        <md-table-cell>{{ index +1 }} {{ todo.name }}</md-table-cell>
                         <md-table-cell md-numeric>{{ todo.priority }}</md-table-cell>
                         <md-table-cell>
                             <md-switch v-model="todo.done" id="done" name="done" class="md-primary"></md-switch>
@@ -44,18 +51,23 @@
                     @pagination="fetchPage(page)">
             </md-table-pagination>
         </md-table-card>
+
+        <md-snackbar md-position="bottom center" ref="connectionError" md-duration="4000">
+            <span>Connection error. Please reconnect using connect button!.</span>
+        </md-snackbar>
+
     </div>
 </template>
 <style>
 
 </style>
 <script>
-    var API_URL = 'http://todos.dev:8000/api/v1/task'
+    import todosVue from '../todosVue'
     export default{
       data () {
         return {
           todos: [],
-          token: null,
+          connecting: true,
           from: 0,
           to: 0,
           total: 0,
@@ -74,9 +86,8 @@
           return this.fetchPage(1)
         },
         fetchPage: function (page) {
-          this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.token
-          this.$http.get(API_URL + '?page=' + page).then((response) => {
-            // console.log(response.data)
+          this.$http.get(todosVue.API_TASK_URL + '?page=' + page).then((response) => {
+            this.connecting = false
             this.todos = response.data.data
             this.from = response.data.from
             this.to = response.data.to
@@ -84,12 +95,16 @@
             this.perPage = response.data.per_page
             this.page = response.data.current_page
           }, (response) => {
-            // TODO only if HTTP response code is 401
-            // this.authorized = false
+            this.connecting: false
+            this.showConnectionError()
+            this.authorized = false
           })
         },
-        checkChanged: function (isChecked) {
-          console.log(isChecked)
+        showConnectionError () {
+          this.$refs.connectionError.open()
+        },
+        onPagination: function () {
+          console.log('pagination todo!')
         }
       }
     }
