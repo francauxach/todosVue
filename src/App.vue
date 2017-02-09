@@ -28,8 +28,13 @@
         </md-list-item>
 
         <md-list-item @click="toggleLeftSidenav">
-          <md-icon>info_outline</md-icon>
+          <md-icon>face</md-icon>
           <router-link exact to="/profile">Profile</router-link>
+        </md-list-item>
+
+        <md-list-item @click="toggleLeftSidenav">
+          <md-icon>info_outline</md-icon>
+          <router-link exact to="/device">Device Info</router-link>
         </md-list-item>
 
         <md-list-item @click="toggleLeftSidenav">
