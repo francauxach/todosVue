@@ -7,6 +7,8 @@ import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
 import VueRouter from 'vue-router'
 import Axios from 'axios'
+import 'roboto-fontface/css/roboto/roboto-fontface.css'
+import 'material-design-icons/iconfont/material-icons.css'
 import querystring from 'querystring'
 
 import auth from './services/auth'
