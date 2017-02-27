@@ -65,6 +65,14 @@
 <script>
 export default {
   name: 'app',
+  data () {
+    return {
+      device: window.cord
+    }
+  },
+  created () {
+    this.initialize()
+  },
   methods: {
     toggleLeftSidenav () {
       this.$refs.leftSidenav.toggle()
@@ -74,6 +82,23 @@ export default {
     },
     close (ref) {
       console.log('Closed: ' + ref)
+    },
+    initialize: function () {
+      console.log('initialize')
+      this.bindEvents()
+    },
+    bindEvents: function () {
+      document.addEventListener('deviceready', this.onDeviceReady, false)
+    },
+    onDeviceReady: function () {
+      this.logDeviceInfo()
+//      this.receivedEvent('deviceready')
+    },
+//    receivedEvent: function (id) {
+//      console.log('Received Event: ' + id)
+//    },
+    logDeviceInfo: function () {
+      console.log(device)
     }
   }
 }
