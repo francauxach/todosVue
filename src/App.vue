@@ -98,7 +98,7 @@ export default {
 //      console.log('Received Event: ' + id)
 //    },
     logDeviceInfo: function () {
-      console.log(device)
+//      console.log(device)
     }
   }
 }

@@ -47,10 +47,11 @@
 </style>
 <script>
   import todosVue from '../todosVue'
+  import gravatar from 'gravatar'
   export default {
     data () {
       return {
-        avatar: 'https://s.gravatar.com/avatar/' + '9ac3cccb8d8700f242bb89a5d31bc4040' + '?s=80', // Ficar aquí el hash de l'email
+        avatar: '',
         id: null,
         name: null,
         email: null,
@@ -60,9 +61,6 @@
       }
     },
     computed: {
-      avatarHash: function () {
-        return '9ac3cccb8d8700f242bb89a5d31bc4040' // S'ha de fer un md5 del email
-      }
     },
     created () {
       this.fetchUserProfile()
@@ -76,6 +74,7 @@
           this.email = response.data.email
           this.createdAt = response.data.created_at
           this.updatedAt = response.data.updated_at
+          this.avatar = this.avatarUrl()
         }, (response) => {
           this.connecting = false
           this.showConnectionError()
@@ -83,6 +82,9 @@
       },
       showConnectionError () {
         this.$refs.connectionError.open()
+      },
+      avatarUrl: function () {
+        return gravatar.url(this.email)
       }
     }
   }
