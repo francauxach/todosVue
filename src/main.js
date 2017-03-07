@@ -34,6 +34,29 @@ if (auth.loggedIn()) {
 Vue.use(VueMaterial)
 Vue.use(VueRouter)
 
+// Vue Material Themes
+Vue.material.registerTheme('custom', {
+  primary: {
+    color: 'teal',
+    hue: '500'
+  },
+  accent: {
+    color: 'blue-grey',
+    hue: '800'
+  },
+  warn: {
+    color: 'orange',
+    hue: 'A700'
+  },
+  background: {
+    color: 'orange',
+    hue: '100'
+  }
+})
+
+// Apply theme
+Vue.material.setCurrentTheme('custom')
+
 /* eslint-disable no-new */
 
 new Vue({
