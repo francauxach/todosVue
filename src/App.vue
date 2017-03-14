@@ -38,6 +38,11 @@
         </md-list-item>
 
         <md-list-item @click="toggleLeftSidenav">
+          <md-icon>build</md-icon>
+          <router-link exact to="/cordova">Cordova</router-link>
+        </md-list-item>
+
+        <md-list-item @click="toggleLeftSidenav">
           <md-icon>exit_to_app</md-icon>
           <router-link exact to="/login" >Login/Logout</router-link>
         </md-list-item>
@@ -98,7 +103,7 @@ export default {
 //      console.log('Received Event: ' + id)
 //    },
     logDeviceInfo: function () {
-//      console.log(device)
+      console.log(window.device)
     }
   }
 }

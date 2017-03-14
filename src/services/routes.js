@@ -5,6 +5,7 @@ import Profile from '../components/Profile'
 import NotFound from '../components/NotFound'
 import Login from '../components/Login'
 import DeviceInfo from '../components/DeviceInfo'
+import Cordova from '../components/Cordova'
 
 const routes = [
   { path: '/',
@@ -29,6 +30,10 @@ const routes = [
   },
   { path: '/device',
     component: DeviceInfo,
+    meta: { auth: false }
+  },
+  { path: '/cordova',
+    component: Cordova,
     meta: { auth: false }
   },
   { path: '*',
