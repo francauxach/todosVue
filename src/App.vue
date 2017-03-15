@@ -19,32 +19,32 @@
       <md-list>
         <md-list-item @click="toggleLeftSidenav">
           <md-icon>view_list</md-icon>
-          <router-link exact to="/todos">Todos</router-link>
+          <router-link exact to="/todos" style="color: white">Todos</router-link>
         </md-list-item>
 
         <md-list-item @click="toggleLeftSidenav">
           <md-icon>verified_user</md-icon>
-          <router-link exact to="/tokens">Tokens</router-link>
+          <router-link exact to="/tokens" style="color: white">Tokens</router-link>
         </md-list-item>
 
         <md-list-item @click="toggleLeftSidenav">
           <md-icon>face</md-icon>
-          <router-link exact to="/profile">Profile</router-link>
+          <router-link exact to="/profile" style="color: white">Profile</router-link>
         </md-list-item>
 
         <md-list-item @click="toggleLeftSidenav">
           <md-icon>info_outline</md-icon>
-          <router-link exact to="/device">Device Info</router-link>
+          <router-link exact to="/device" style="color: white">Device Info</router-link>
         </md-list-item>
 
         <md-list-item @click="toggleLeftSidenav">
           <md-icon>build</md-icon>
-          <router-link exact to="/cordova">Cordova</router-link>
+          <router-link exact to="/cordova" style="color: white">Cordova</router-link>
         </md-list-item>
 
         <md-list-item @click="toggleLeftSidenav">
           <md-icon>exit_to_app</md-icon>
-          <router-link exact to="/login" >Login/Logout</router-link>
+          <router-link exact to="/login" style="color: white">Login/Logout</router-link>
         </md-list-item>
 
         <md-list-item>
@@ -113,5 +113,9 @@ export default {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+router-link {
+  color: white;
 }
 </style>

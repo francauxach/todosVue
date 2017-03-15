@@ -35,27 +35,18 @@ Vue.use(VueMaterial)
 Vue.use(VueRouter)
 
 // Vue Material Themes
-Vue.material.registerTheme('custom', {
+Vue.material.registerTheme('default', {
   primary: {
     color: 'teal',
     hue: '500'
   },
-  accent: {
-    color: 'blue-grey',
-    hue: '800'
-  },
+  accent: 'purple',
   warn: {
     color: 'orange',
     hue: 'A700'
   },
-  background: {
-    color: 'orange',
-    hue: '100'
-  }
+  background: 'blue-grey'
 })
-
-// Apply theme
-Vue.material.setCurrentTheme('custom')
 
 /* eslint-disable no-new */
 
