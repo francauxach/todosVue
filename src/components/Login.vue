@@ -70,7 +70,7 @@
                 hash = url.split('#')[1]
               }
               if (hash) {
-                var accessToken = login.extractToken('#' + String(hash[1]))
+                var accessToken = login.extractToken('#' + String(hash))
                 if (accessToken) {
                   auth.saveToken(accessToken)
                   login.authorized = true
