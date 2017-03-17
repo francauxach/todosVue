@@ -76,7 +76,6 @@ export default {
     }
   },
   created () {
-    console.log(window.location.href)
     this.initialize()
   },
   methods: {
@@ -91,20 +90,6 @@ export default {
     },
     initialize: function () {
       console.log('initialize')
-      this.bindEvents()
-    },
-    bindEvents: function () {
-      document.addEventListener('deviceready', this.onDeviceReady, false)
-    },
-    onDeviceReady: function () {
-      this.logDeviceInfo()
-//      this.receivedEvent('deviceready')
-    },
-//    receivedEvent: function (id) {
-//      console.log('Received Event: ' + id)
-//    },
-    logDeviceInfo: function () {
-      console.log(window.device)
     }
   }
 }
@@ -114,9 +99,5 @@ export default {
 a {
   color: inherit;
   text-decoration: none;
-}
-
-router-link {
-  color: white;
 }
 </style>

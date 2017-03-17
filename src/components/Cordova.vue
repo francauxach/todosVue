@@ -12,11 +12,14 @@ export default {
     document.addEventListener('deviceready', this.onDeviceReady, false)
   },
   beforeDestroy () {
-    document.removeEventListener('deviceready', this.onDeviceReady, false)
+    document.removeEventListener('deviceready', this.onBeforeDestroy, false)
   },
   methods: {
     onDeviceReady () {
       console.log('device ready!')
+    },
+    onBeforeDestroy () {
+      console.log('EventListener for deviceready removed!')
     }
   }
 }
