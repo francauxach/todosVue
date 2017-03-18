@@ -51,7 +51,6 @@
   import todosVue from '../todosVue'
   import gravatar from 'gravatar'
   import VuePullRefresh from 'vue-pull-refresh'
-
   export default {
     components: {
       'vue-pull-refresh': VuePullRefresh
@@ -88,7 +87,7 @@
           this.createdAt = response.data.created_at
           this.updatedAt = response.data.updated_at
           this.avatar = this.avatarUrl()
-        }, (response) => {
+        }, (errors) => {
           this.connecting = false
           this.showConnectionError()
         })
