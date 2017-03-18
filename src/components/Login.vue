@@ -5,8 +5,8 @@
         </md-card-header>
 
         <md-card-content>
-            <md-button class="md-raised md-primary" @click="login" v-show="!authorized">Login</md-button>
-            <md-button class="md-raised md-primary" @click="initLogout" v-show="authorized">Logout</md-button>
+            <md-button class="md-raised md-primary" @click.native="login" v-show="!authorized">Login</md-button>
+            <md-button class="md-raised md-primary" @click.native="initLogout" v-show="authorized">Logout</md-button>
         </md-card-content>
 
         <md-dialog-confirm
