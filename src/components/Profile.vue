@@ -84,7 +84,7 @@
         this.$refs.connectionError.open()
       },
       avatarUrl: function () {
-        return gravatar.url(this.email)
+        return 'http:' + gravatar.url(this.email)
       }
     }
   }
