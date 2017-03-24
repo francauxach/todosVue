@@ -68,6 +68,8 @@
 </template>
 
 <script>
+import notifications from './services/notifications'
+
 export default {
   name: 'app',
   data () {
@@ -90,6 +92,11 @@ export default {
     },
     initialize: function () {
       console.log('initialize')
+      document.addEventListener('deviceready', this.onDeviceReady, false)
+    },
+    onDeviceReady () {
+      console.log('Working on platform: ' + window.device.platform)
+      notifications.enable()
     }
   }
 }
