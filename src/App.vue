@@ -38,6 +38,11 @@
         </md-list-item>
 
         <md-list-item @click.native="toggleLeftSidenav">
+          <md-icon>send</md-icon>
+          <router-link exact to="/notifications" class="md-button" :class="`md-theme-${$material.currentTheme}`" style="color: white; text-align:left">Notifications</router-link>
+        </md-list-item>
+
+        <md-list-item @click.native="toggleLeftSidenav">
           <md-icon>build</md-icon>
           <router-link exact to="/cordova" class="md-button" :class="`md-theme-${$material.currentTheme}`" style="color: white; text-align:left">Cordova</router-link>
         </md-list-item>

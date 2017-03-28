@@ -2,15 +2,30 @@
 
 import todosVue from '../todosVue'
 
+import Form from 'francauxach-forms'
+
 import app from '../App.vue'
 
 export default {
-  enable () {
-    this.initPushNotifications()
-    this.registerPushNotifications()
-    this.processPushNotifications()
+  get () {
+    return {
+      notifications: this.fetchNotifications()
+    }
   },
-  initPushNotifications () {
+  fetchNotifications: function () {
+    this.$http.get(todosVue.GET_MESSAGES_URL).then((response) => {
+      return response.data
+    }, (error) => {
+      console.log('error: ' + error)
+    })
+  },
+  enable () {
+    this.init()
+    this.register()
+    this.subscribe('all')
+    this.process()
+  },
+  init () {
     app.push = window.PushNotification.init({
       'android': {
         'senderID': todosVue.ANDROID_SENDER_ID
@@ -23,7 +38,7 @@ export default {
       'windows': {}
     })
   },
-  registerPushNotifications () {
+  register () {
     app.push.on('registration', function (data) {
       console.log('registration event: ' + data.registrationId)
       var oldRegId = localStorage.getItem('registrationId')
@@ -31,11 +46,28 @@ export default {
         // Save new registration ID
         localStorage.setItem('registrationId', data.registrationId)
         // Post registrationId to your app server as the value has changed
-        // TODO: Axios.post('todosbackend en explotacio')-> registrar
+        let form = new Form({'registration_id': data.registrationId})
+
+        form.post(todosVue.REGISTER_GCM_TOKEN_URL)
+          .then(response => {
+            console.log('GCM token registered OK!')
+          })
+          .catch(error => {
+            console.log('And error ocurred adding GCM token to backend!')
+            console.log(error)
+          })
       }
     })
   },
-  processPushNotifications () {
+  subscribe (topic) {
+    app.push.subscribe('/topics/' + topic, function () {
+      console.log('Success registration to all topic')
+    }, function (e) {
+      console.log('error registrating to all topic:')
+      console.log(e)
+    })
+  },
+  process () {
     app.push.on('error', function (e) {
       console.log('push error = ' + e.message)
     })
