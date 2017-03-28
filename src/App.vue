@@ -61,8 +61,12 @@
       </md-list>
 
     </md-sidenav>
+    <transition name="bounce"
+                enter-active-class="animated lightSpeedIn"
+                leave-active-class="animated lightSpeedOut">
+      <router-view></router-view>
+    </transition>
 
-    <router-view></router-view>
 
   </div>
 </template>

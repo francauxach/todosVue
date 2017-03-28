@@ -14,6 +14,8 @@ import querystring from 'querystring'
 import auth from './services/auth'
 import router from './services/router'
 
+import 'animate.css/animate.css'
+
 // QueryString
 window.querystring = querystring
 
