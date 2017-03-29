@@ -12,7 +12,7 @@
 <style>
 </style>
 <script>
-  import todosVue from '../todosVue'
+//  import todosVue from '../todosVue'
   export default{
     props: {
       notifications: {

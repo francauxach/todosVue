@@ -6,6 +6,8 @@ import Form from 'francauxach-forms'
 
 import app from '../App.vue'
 
+import router from 'router'
+
 export default {
   get () {
     return {
@@ -77,6 +79,13 @@ export default {
       console.log('Title: ' + data.title)
       console.log('Message: ' + data.message)
       console.log('Foreground: ' + data.additionalData.foreground)
+
+      router.push({
+        path: '/notifications',
+        params: {
+          notifications: this.fetchNotifications()
+        }
+      })
     })
   }
 }
