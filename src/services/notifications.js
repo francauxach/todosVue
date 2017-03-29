@@ -6,16 +6,17 @@ import Form from 'francauxach-forms'
 
 import app from '../App.vue'
 
-import router from 'router'
+import router from './router'
 
 export default {
   get () {
     return {
-      notifications: this.fetchNotifications()
+      notifications: this.fetch()
     }
   },
-  fetchNotifications: function () {
-    this.$http.get(todosVue.GET_MESSAGES_URL).then((response) => {
+  fetch: function () {
+    window.axios.get(todosVue.GET_MESSAGES_URL).then((response) => {
+      console.log(response.data)
       return response.data
     }, (error) => {
       console.log('error: ' + error)
@@ -73,7 +74,7 @@ export default {
     app.push.on('error', function (e) {
       console.log('push error = ' + e.message)
     })
-
+    let notifications = this
     app.push.on('notification', function (data) {
       console.log('Notification event received!')
       console.log('Title: ' + data.title)
@@ -83,7 +84,7 @@ export default {
       router.push({
         path: '/notifications',
         params: {
-          notifications: this.fetchNotifications()
+          notifications: notifications.fetch()
         }
       })
     })
