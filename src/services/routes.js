@@ -10,8 +10,8 @@ import Notifications from '../components/Notifications'
 
 const routes = [
   { path: '/',
-    component: Todos,
-    meta: { auth: true }
+    component: Login,
+    meta: { auth: false }
   },
   { path: '/todos',
     component: Todos,
