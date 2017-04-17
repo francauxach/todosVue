@@ -60,9 +60,6 @@
         if (hasDelay) {
           this.delayTime = this.cTime - this.teTime
         }
-      },
-      prova: function () {
-        console.log('hola')
       }
     }
   }
