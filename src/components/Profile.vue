@@ -24,6 +24,14 @@
           </md-input-container>
 
           <md-input-container>
+            <label>Contact number</label>
+            <md-input v-model="contact" placeholder="Put your contact number here"></md-input>
+            <md-button class="md-icon-button md-dense" @click.native="initAddContact">
+              <md-icon>add</md-icon>
+            </md-button>
+          </md-input-container>
+
+          <md-input-container>
             <label>Created At</label>
             <md-input v-model="createdAt" placeholder="Date here"></md-input>
           </md-input-container>
@@ -41,6 +49,25 @@
       </md-card-actions>
       <md-snackbar md-position="bottom center" ref="connectionError" md-duration="4000">
         <span>Connection error. Please reconnect using connect button!.</span>
+      </md-snackbar>
+      <md-snackbar md-position="bottom center" ref="contactsAPIError" md-duration="4000">
+        <span>Contacts API not supported!</span>
+      </md-snackbar>
+      <md-dialog-alert
+        md-content="Contact number can't be null and must have at least 9 numbers."
+        md-ok-text="OK"
+        ref="alertNullContactNumber">
+      </md-dialog-alert>
+      <md-dialog-confirm
+        md-title="Add contact number"
+        md-content="Are you sure you want to add this contact number to your contact list?"
+        md-ok-text="Yes"
+        md-cancel-text="No"
+        @close="onCloseSureToAddContactNumber"
+        ref="confirmAddContactNumber">
+      </md-dialog-confirm>
+      <md-snackbar md-position="bottom center" ref="alertSuccessAddContact" md-duration="4000">
+        <span>Your contact number {{ contact }} was added correctly for {{ name.split(' ' )[0] }} {{ name.split(' ' )[1] }}</span>
       </md-snackbar>
     </md-card>
   </vue-pull-refresh>
@@ -61,6 +88,7 @@
         id: null,
         name: null,
         email: null,
+        contact: null,
         createdAt: null,
         updatedAt: null,
         connecting: true,
@@ -84,6 +112,7 @@
           this.id = response.data.id
           this.name = response.data.name
           this.email = response.data.email
+          this.contact = response.data.contact_number
           this.createdAt = response.data.created_at
           this.updatedAt = response.data.updated_at
           this.avatar = this.avatarUrl()
@@ -107,6 +136,37 @@
         }).then(() => {
           this.fetchUserProfile()
         })
+      },
+      initAddContact: function () {
+        if (this.email == null || this.email.length < 9) {
+          this.openDialog('alertNullContactNumber')
+        } else {
+          this.openDialog('confirmAddContactNumber')
+        }
+      },
+      openDialog: function (ref) {
+        this.$refs[ref].open()
+      },
+      onCloseSureToAddContactNumber: function (type) {
+        if (type === 'ok') this.addContact()
+      },
+      addContact: function () {
+        if (!navigator.contacts) {
+          this.showContactsAPIError()
+          return
+        }
+        var contact = navigator.contacts.create()
+        var splittedName = this.name.split(' ')
+        contact.name = {givenName: splittedName[0], familyName: splittedName[1]}
+        var phoneNumbers = []
+        phoneNumbers[0] = new window.ContactField('mobile', this.contact, true)
+        contact.phoneNumbers = phoneNumbers
+        contact.save()
+        this.openDialog('alertSuccessAddContact')
+        return false
+      },
+      showContactsAPIError: function () {
+        this.$refs.contactsAPIError.open()
       }
     }
   }
