@@ -16,6 +16,8 @@ import router from './services/router'
 
 import 'animate.css/animate.css'
 
+import 'fastclick/lib/fastclick.js'
+
 // QueryString
 window.querystring = querystring
 
