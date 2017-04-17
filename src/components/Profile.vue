@@ -3,12 +3,13 @@
     <md-spinner :md-size="150" md-indeterminate  class="md-accent" v-show="connecting" ></md-spinner>
     <md-card md-with-hover v-show="!connecting">
       <md-card-header>
-        <md-avatar>
+        <md-avatar @click.native="changePicture">
           <img :src="avatar" alt="Franc Auxach Cortés">
         </md-avatar>
 
         <div class="md-title">{{ id }} {{ name }}</div>
         <div class="md-subhead">{{ email }}</div>
+        <span>(Click avatar to change it)</span>
       </md-card-header>
 
       <md-card-content>
@@ -53,6 +54,9 @@
       <md-snackbar md-position="bottom center" ref="contactsAPIError" md-duration="4000">
         <span>Contacts API not supported!</span>
       </md-snackbar>
+      <md-snackbar md-position="bottom center" ref="cameraAPIError" md-duration="4000">
+        <span>Camera API not supported!</span>
+      </md-snackbar>
       <md-dialog-alert
         md-content="Contact number can't be null and must have at least 9 numbers."
         md-ok-text="OK"
@@ -68,6 +72,9 @@
       </md-dialog-confirm>
       <md-snackbar md-position="bottom center" ref="alertSuccessAddContact" md-duration="4000">
         <span>Your contact number {{ contact }} was added correctly for {{ name.split(' ' )[0] }} {{ name.split(' ' )[1] }}</span>
+      </md-snackbar>
+      <md-snackbar md-position="bottom center" ref="alertSuccessChangePicture" md-duration="4000">
+        <span>Your avatar was changed successfully!</span>
       </md-snackbar>
     </md-card>
   </vue-pull-refresh>
@@ -167,6 +174,33 @@
       },
       showContactsAPIError: function () {
         this.$refs.contactsAPIError.open()
+      },
+      changePicture: function () {
+        if (!navigator.camera) {
+          this.showCameraAPIError()
+          return
+        }
+        var options = {
+          quality: 50,
+          destinationType: window.Camera.DestinationType.DATA_URL,
+          sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Album
+          encodingType: 0     // 0=JPG 1=PNG
+        }
+
+        var profile = this
+        navigator.camera.getPicture(
+          function (imgData) {
+            profile.avatar = 'data:image/jpeg;base64,' + imgData
+            profile.openDialog('alertSuccessChangePicture')
+          },
+          function () {
+            console.log('Error taking picture', 'Error')
+          }, options)
+
+        return false
+      },
+      showCameraAPIError: function () {
+        this.$refs.cameraAPIError.open()
       }
     }
   }
