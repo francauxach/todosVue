@@ -109,7 +109,7 @@
             locations.newLocation.coords = position.coords.latitude + ',' + position.coords.longitude
           },
           function () {
-            console.log('Error getting location')
+            this.openDialog('geolocationAPIError')
           })
         return false
       },
