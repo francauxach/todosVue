@@ -48,6 +48,11 @@
         </md-list-item>
 
         <md-list-item @click.native="toggleLeftSidenav">
+          <md-icon>new_releases</md-icon>
+          <router-link exact to="/tests" class="md-button" :class="`md-theme-${$material.currentTheme}`" style="color: white; text-align:left">Tests</router-link>
+        </md-list-item>
+
+        <md-list-item @click.native="toggleLeftSidenav">
           <md-icon>exit_to_app</md-icon>
           <router-link exact to="/login" class="md-button" :class="`md-theme-${$material.currentTheme}`" style="color: white; text-align:left">Login/Logout</router-link>
         </md-list-item>
