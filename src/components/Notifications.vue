@@ -12,25 +12,38 @@
 <style>
 </style>
 <script>
-//  import todosVue from '../todosVue'
+  import todosVue from '../todosVue'
+  import notificationsService from '../services/notifications'
   export default{
-//    props: {
-//      notifications: {
-//        type: Array,
-//        default: function () {
-//          return []
-//        }
-//      }
-//    }
+    props: {
+      notifications: {
+        type: Array,
+        default: function () {
+          return []
+        }
+      }
+    },
     data () {
       return {
         notifications: []
       }
     },
     created () {
+      notificationsService.enable()
+      this.fetchNotifications()
       console.log(this.$route.params)
       if (this.$route.params) {
         this.notifications = this.$route.params
+      }
+    },
+    methods: {
+      fetchNotifications: function () {
+        this.$http.get(todosVue.GET_MESSAGES_URL).then((response) => {
+          console.log(response)
+          this.notifications = response.data
+        }, (errors) => {
+          console.log(errors)
+        })
       }
     }
   }

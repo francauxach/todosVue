@@ -44,15 +44,15 @@ export default {
   register () {
     app.push.on('registration', function (data) {
       console.log('registration event: ' + data.registrationId)
-      var oldRegId = localStorage.getItem('registrationId')
+      let oldRegId = localStorage.getItem('registrationId')
       if (oldRegId !== data.registrationId) {
-        // Save new registration ID
-        localStorage.setItem('registrationId', data.registrationId)
         // Post registrationId to your app server as the value has changed
         let form = new Form({'registration_id': data.registrationId})
 
         form.post(todosVue.REGISTER_GCM_TOKEN_URL)
           .then(response => {
+            // Save new registration ID
+            localStorage.setItem('registrationId', data.registrationId)
             console.log('GCM token registered OK!')
           })
           .catch(error => {
