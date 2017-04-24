@@ -9,8 +9,21 @@ import Cordova from '../components/Cordova'
 import Tests from '../components/Tests'
 import Locations from '../components/Locations'
 import Notifications from '../components/Notifications'
+import Exit from '../components/Exit'
 
 const routes = [
+  { path: '/android_asset/www/index.html',
+    component: Login,
+    meta: { auth: false }
+  },
+  { path: '/index.html',
+    component: Login,
+    meta: { auth: false }
+  },
+  { path: '',
+    component: Login,
+    meta: { auth: false }
+  },
   { path: '/',
     component: Login,
     meta: { auth: false }
@@ -52,6 +65,10 @@ const routes = [
   },
   { path: '/locations',
     component: Locations,
+    meta: { auth: false }
+  },
+  { path: '/exit',
+    component: Exit,
     meta: { auth: false }
   },
   { path: '*',

@@ -62,6 +62,11 @@
           <router-link exact to="/login" class="md-button" :class="`md-theme-${$material.currentTheme}`" style="color: white; text-align:left">Login/Logout</router-link>
         </md-list-item>
 
+        <md-list-item @click.native="toggleLeftSidenav">
+          <md-icon>close</md-icon>
+          <router-link exact to="/exit" class="md-button" :class="`md-theme-${$material.currentTheme}`" style="color: white; text-align:left">Close APP</router-link>
+        </md-list-item>
+
         <md-list-item>
           <md-avatar>
             <img src="https://placeimg.com/40/40/people/5" alt="People">
